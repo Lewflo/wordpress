@@ -1,0 +1,27 @@
+version: '3'
+volumes:
+  wordpress-db-store:
+  wordpress-store:
+
+services:
+  wordpress-db:
+    image: mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+      MYSQL_DATABASE: wordpress-db
+      MYSQL_USER: lakban
+      MYSQL_PASSWORD: lakban123
+    volumes: 
+    - wordpress-db-store:/var/lib/mysql
+
+  wordpress:
+    image: wordpress
+    environment: 
+      WORDPRESS_DB_HOST: wordpress-db
+      WORDPRESS_DB_USER: lakban
+      WORDPRESS_DB_PASSWORD: lakban123
+      WORDPRESS_DB_NAME: wordpress-db
+    ports:
+      - 8080:80
+    volumes:
+      - wordpress-store:/var/www/html
