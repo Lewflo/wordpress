@@ -4,6 +4,20 @@ volumes:
   wordpress-store:
 
 services:
+  wordpress:
+    image: wordpress
+    environment: 
+      WORDPRESS_DB_HOST: wordpress-db
+      WORDPRESS_DB_USER: lakban
+      WORDPRESS_DB_PASSWORD: lakban123
+      WORDPRESS_DB_NAME: wordpress-db
+    depends_on:
+      - wordpress-db
+    ports:
+      - 8080:80
+    volumes:
+      - wordpress-store:/var/www/html
+
   wordpress-db:
     image: mysql
     environment: 
@@ -14,14 +28,7 @@ services:
     volumes: 
     - wordpress-db-store:/var/lib/mysql
 
-  wordpress:
-    image: wordpress
-    environment: 
-      WORDPRESS_DB_HOST: wordpress-db
-      WORDPRESS_DB_USER: lakban
-      WORDPRESS_DB_PASSWORD: lakban123
-      WORDPRESS_DB_NAME: wordpress-db
+  adminer:
+    image: adminer
     ports:
-      - 8080:80
-    volumes:
-      - wordpress-store:/var/www/html
+      - 9000:8080
