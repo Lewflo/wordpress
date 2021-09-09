@@ -32,3 +32,5 @@ services:
     image: adminer
     ports:
       - 9000:8080
+      
+      SCRIPT RUSAK
